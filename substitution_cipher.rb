@@ -1,4 +1,5 @@
 module SubstitutionCipher
+  # module Caesar works to shift every input letter their position according to key
   module Caesar
     # Encrypts document using key
     # Arguments:
@@ -7,6 +8,11 @@ module SubstitutionCipher
     # Returns: String
     def self.encrypt(document, key)
       # TODO: encrypt string using caesar cipher
+      result_key = key % 26
+      # result = document.to_s.chars.map { |c| c.ord }
+      # result = document.to_s.bytes
+      result = document.to_s.bytes.map { |char| char + result_key }
+      result.map(&:chr).join
     end
 
     # Decrypts String document using integer key
@@ -16,9 +22,15 @@ module SubstitutionCipher
     # Returns: String
     def self.decrypt(document, key)
       # TODO: decrypt string using caesar cipher
+      result_key = key % 26
+      # result = document.to_s.chars.map { |c| c.ord }
+      # result = document.to_s.bytes
+      result = document.to_s.bytes.map { |char| char - result_key }
+      result.map(&:chr).join
     end
   end
 
+  # module Permutation works to randomly shuffle every input letter according to key
   module Permutation
     # Encrypts document using key
     # Arguments:
