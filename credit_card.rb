@@ -9,6 +9,7 @@ class CreditCard
 
   def initialize(number, expiration_date, owner, credit_network)
     # TODO: initialize the instance variables listed above
+    @number = number
   end
 
   # returns json string
