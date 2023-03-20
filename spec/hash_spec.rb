@@ -25,24 +25,32 @@ describe 'Test hashing requirements' do
   describe 'Test regular hashing' do
     describe 'Check hashes are consistently produced' do
       # TODO: Check that each card produces the same hash if hashed repeatedly
+      cards.each {|card| card.hash.must_equal card.hash}    
     end
 
     describe 'Check for unique hashes' do
       # TODO: Check that each card produces a different hash than other cards
+      cards.map(&:hash).uniq.length.must_equal(3)
     end
   end
 
   describe 'Test cryptographic hashing' do
     describe 'Check hashes are consistently produced' do
       # TODO: Check that each card produces the same hash if hashed repeatedly
+      cards.map(&:hash_secure).must_equal cards.map(&:hash_secure)
     end
 
     describe 'Check for unique hashes' do
       # TODO: Check that each card produces a different hash than other cards
+      cards.map(&:hash_secure).uniq.length.must_equal(3)
     end
 
     describe 'Check regular hash not same as cryptographic hash' do
       # TODO: Check that each card's hash is different from its hash_secure
+      cards.map do |cc|
+        hash1 = cc.hash
+        hash2 = cc.hash_secure
+        hash1.wont_be_same_as hash2
     end
   end
 end
