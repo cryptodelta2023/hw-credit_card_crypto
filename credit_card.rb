@@ -1,5 +1,6 @@
-require_relative './luhn_validator.rb'
+require_relative './luhn_validator'
 require 'json'
+require 'openssl'
 
 class CreditCard
   # TODO: mixin the LuhnValidator using an 'include' statement
@@ -10,11 +11,18 @@ class CreditCard
   def initialize(number, expiration_date, owner, credit_network)
     # TODO: initialize the instance variables listed above
     @number = number
+    @expiration_date = expiration_date
+    @owner = owner
+    @credit_network = credit_network
   end
 
   # returns json string
-  def to_json
+  def to_json(*_args)
     {
+      'number' => @number,
+      'expiration_date' => @expiration_date,
+      'owner' => @owner,
+      'credit_network' => @credit_network
       # TODO: setup the hash with all instance vairables to serialize into json
     }.to_json
   end
@@ -35,6 +43,7 @@ class CreditCard
     #   - Produce a hash (using default hash method) of the credit card's
     #     serialized contents.
     #   - Credit cards with identical information should produce the same hash
+    to_s.hash
   end
 
   # return a cryptographically secure hash
@@ -42,5 +51,7 @@ class CreditCard
     # TODO: implement this method
     #   - Use sha256 to create a cryptographically secure hash.
     #   - Credit cards with identical information should produce the same hash
+    sha256 = OpenSSL::Digest.new('SHA256')
+    sha256.digest(to_s).unpack('H*')
   end
 end
