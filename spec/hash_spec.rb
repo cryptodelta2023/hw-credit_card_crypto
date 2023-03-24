@@ -37,7 +37,7 @@ describe 'Test hashing requirements' do
       # TODO: Check that each card produces a different hash than other cards
       it 'Check that each card produces a different hash than other cards' do
         hashed = cards.map(&:hash)
-        _(hashed.uniq.length).must_equal 3
+        _(hashed.uniq.length).must_equal cards.length
       end
     end
 

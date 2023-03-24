@@ -1,6 +1,6 @@
 require_relative './luhn_validator'
 require 'json'
-require 'openssl'
+require 'rbnacl'
 
 class CreditCard
   # TODO: mixin the LuhnValidator using an 'include' statement
@@ -51,7 +51,7 @@ class CreditCard
     # TODO: implement this method
     #   - Use sha256 to create a cryptographically secure hash.
     #   - Credit cards with identical information should produce the same hash
-    sha256 = OpenSSL::Digest.new('SHA256')
-    sha256.digest(to_s).unpack('H*')
+    sha256 = RbNaCl::Hash.sha256(self)
+    # sha256.digest(to_s).unpack('H*')
   end
 end
