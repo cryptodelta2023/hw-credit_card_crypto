@@ -19,11 +19,15 @@ class CreditCard
   # returns json string
   def to_json(*_args)
     {
-      'number' => @number,
-      'expiration_date' => @expiration_date,
-      'owner' => @owner,
-      'credit_network' => @credit_network
+      # 'number' => @number,
+      # 'expiration_date' => @expiration_date,
+      # 'owner' => @owner,
+      # 'credit_network' => @credit_network
       # TODO: setup the hash with all instance vairables to serialize into json
+      number: @number,
+      expiration_date: @expiration_date,
+      owner: @owner,
+      credit_network: @credit_network
     }.to_json
   end
 
@@ -35,6 +39,7 @@ class CreditCard
   # return a new CreditCard object given a serialized (JSON) representation
   def self.from_s(card_s)
     # TODO: deserializing a CreditCard object
+    JSON.parse(card_s)
   end
 
   # return a hash of the serialized credit card object
@@ -51,7 +56,7 @@ class CreditCard
     # TODO: implement this method
     #   - Use sha256 to create a cryptographically secure hash.
     #   - Credit cards with identical information should produce the same hash
-    sha256 = RbNaCl::Hash.sha256(self)
+    RbNaCl::Hash.sha256(to_s)
     # sha256.digest(to_s).unpack('H*')
   end
 end
