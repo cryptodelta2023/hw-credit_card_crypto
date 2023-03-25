@@ -11,6 +11,7 @@ describe 'Test card info encryption' do
     @cc = CreditCard.new('4916603231464963', 'Mar-30-2020',
                          'Soumya Ray', 'Visa')
     @key = 3
+    @mskey = ModernSymmetricCipher.generate_new_key
   end
 
   # describe 'Using Caesar cipher' do
@@ -78,12 +79,9 @@ describe 'Test card info encryption' do
         elsif name == 'Permutation'
           enc = SubstitutionCipher::Permutation.encrypt(@cc, @key)
           dec = SubstitutionCipher::Permutation.decrypt(enc, @key)
-        elsif name == 'Double Transposition'
+        else name == 'Double Transposition'
           enc = DoubleTranspositionCipher.encrypt(@cc, @key)
           dec = DoubleTranspositionCipher.decrypt(enc, @key)
-        else name == 'ModernSymmetricCipher'
-          enc = ModernSymmetricCipher.encrypt(@cc, @key)
-          dec = ModernSymmetricCipher.decrypt(enc, @key)
         end
         _(dec).must_equal @cc.to_s
       end
@@ -95,6 +93,19 @@ describe 'Test card info encryption' do
       enc = ModernSymmetricCipher.generate_new_key
       _(enc).wont_be_nil
     end
+
+    it 'should encrypt card information' do
+      enc = ModernSymmetricCipher.encrypt(@cc, @mskey)
+      _(enc).wont_equal @cc.to_s
+      _(enc).wont_be_nil
+    end
+
+    it 'should decrypt text' do
+      enc = ModernSymmetricCipher.encrypt(@cc, @mskey)
+      dec = ModernSymmetricCipher.decrypt(enc, @mskey)
+      _(dec).must_equal @cc.to_s
+    end
+
   end
   
 end
