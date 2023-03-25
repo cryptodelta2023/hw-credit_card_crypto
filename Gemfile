@@ -5,3 +5,4 @@ gem 'minitest'
 # Add all the gems your code and tests use here!
 
 gem 'rbnacl'
+gem 'base64'

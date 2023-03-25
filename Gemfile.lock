@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    base64 (0.1.1)
     ffi (1.15.5)
     json (2.6.3)
     minitest (5.18.0)
@@ -11,6 +12,7 @@ PLATFORMS
   x86_64-darwin-21
 
 DEPENDENCIES
+  base64
   json
   minitest
   rbnacl
