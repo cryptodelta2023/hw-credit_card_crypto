@@ -79,7 +79,7 @@ describe 'Test card info encryption' do
         elsif name == 'Permutation'
           enc = SubstitutionCipher::Permutation.encrypt(@cc, @key)
           dec = SubstitutionCipher::Permutation.decrypt(enc, @key)
-        elsif name == 'Double Transposition'
+        else name == 'Double Transposition'
           enc = DoubleTranspositionCipher.encrypt(@cc, @key)
           dec = DoubleTranspositionCipher.decrypt(enc, @key)
         else name == 'ModernSymmetricCipher'
@@ -108,6 +108,5 @@ describe 'Test card info encryption' do
     #   dec = ModernSymmetricCipher.decrypt(enc, @mskey)
     #   _(dec).must_equal @cc.to_s
     # end
-
   end
 end
